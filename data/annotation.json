@@ -1,0 +1,300 @@
+{
+    "video_event": "Two girls are building sand castles on a beach using buckets to pour water into the sand structures.",
+    "frames": [
+        {
+            "frame_no": 0,
+            "event": "A girl pours water from a purple bucket into sand structures while another girl is partially visible.",
+            "objects": [
+                {
+                    "object_id": "<ob1>",
+                    "label": "girl1",
+                    "bbox": [250, 0, 398, 224]
+                },
+                {
+                    "object_id": "<ob2>",
+                    "label": "girl2",
+                    "bbox": [50, 170, 200, 224]
+                },
+                {
+                    "object_id": "<ob3>",
+                    "label": "sand castle",
+                    "bbox": [100, 150, 350, 224]
+                }
+            ]
+        },
+        {
+            "frame_no": 1,
+            "event": "A girl bends over, pouring water from a purple bucket near sand structures.",
+            "objects": [
+                {
+                    "object_id": "<ob1>",
+                    "label": "girl1",
+                    "bbox": [200, 30, 398, 224]
+                },
+                {
+                    "object_id": "<ob3>",
+                    "label": "sand castle",
+                    "bbox": [50, 150, 300, 224]
+                }
+            ]
+        },
+        {
+            "frame_no": 2,
+            "event": "A girl stands and pours water from a purple bucket near sand structures.",
+            "objects": [
+                {
+                    "object_id": "<ob1>",
+                    "label": "girl1",
+                    "bbox": [200, 0, 350, 224]
+                },
+                {
+                    "object_id": "<ob3>",
+                    "label": "sand castle",
+                    "bbox": [10, 150, 250, 224]
+                }
+            ]
+        },
+        {
+            "frame_no": 3,
+            "event": "One girl pours water from a purple bucket, another girl crouches with a blue bucket near sand structures.",
+            "objects": [
+                {
+                    "object_id": "<ob1>",
+                    "label": "girl1",
+                    "bbox": [250, 0, 398, 224]
+                },
+                {
+                    "object_id": "<ob2>",
+                    "label": "girl2",
+                    "bbox": [10, 100, 200, 224]
+                },
+                {
+                    "object_id": "<ob3>",
+                    "label": "sand castle",
+                    "bbox": [200, 150, 350, 224]
+                }
+            ]
+        },
+        {
+            "frame_no": 4,
+            "event": "A girl crouches with a blue bucket, another girl stands with a purple bucket near sand structures.",
+            "objects": [
+                {
+                    "object_id": "<ob1>",
+                    "label": "girl1",
+                    "bbox": [250, 0, 350, 224]
+                },
+                {
+                    "object_id": "<ob2>",
+                    "label": "girl2",
+                    "bbox": [100, 100, 300, 224]
+                },
+                {
+                    "object_id": "<ob3>",
+                    "label": "sand castle",
+                    "bbox": [200, 150, 350, 224]
+                }
+            ]
+        },
+        {
+            "frame_no": 5,
+            "event": "A girl pours water from a purple bucket into sand structures while another girl crouches nearby.",
+            "objects": [
+                {
+                    "object_id": "<ob1>",
+                    "label": "girl1",
+                    "bbox": [200, 0, 350, 224]
+                },
+                {
+                    "object_id": "<ob2>",
+                    "label": "girl2",
+                    "bbox": [100, 150, 300, 224]
+                },
+                {
+                    "object_id": "<ob3>",
+                    "label": "sand castle",
+                    "bbox": [200, 150, 350, 224]
+                }
+            ]
+        },
+        {
+            "frame_no": 6,
+            "event": "A girl pours water from a purple bucket near sand structures, another girl is partially visible.",
+            "objects": [
+                {
+                    "object_id": "<ob1>",
+                    "label": "girl1",
+                    "bbox": [200, 0, 350, 224]
+                },
+                {
+                    "object_id": "<ob2>",
+                    "label": "girl2",
+                    "bbox": [50, 150, 200, 224]
+                },
+                {
+                    "object_id": "<ob3>",
+                    "label": "sand castle",
+                    "bbox": [200, 150, 350, 224]
+                }
+            ]
+        },
+        {
+            "frame_no": 7,
+            "event": "A girl walks while holding a purple bucket, another girl is partially visible.",
+            "objects": [
+                {
+                    "object_id": "<ob3>",
+                    "label": "sand castle",
+                    "bbox": [200, 150, 350, 224]
+                }
+            ]
+        },
+        {
+            "frame_no": 7,
+            "event": "A girl walks while holding a purple bucket, another girl is partially visible.",
+            "objects": [
+                {
+                    "bbox": [200, 150, 350, 224]
+                }
+            ]
+        },
+        {
+            "frame_no": 7,
+            "event": "A girl walks while holding a purple bucket, another girl is partially visible.",
+            "objects": [
+                {
+                    "object_id": "<ob1>",
+                    "label": "girl1",
+                    "bbox": [200, 0, 350, 224]
+                },
+                {
+                    "object_id": "<ob2>",
+                    "label": "girl2",
+                    "bbox": [0, 150, 150, 224]
+                },
+                {
+                    "object_id": "<ob3>",
+                    "label": "sand castle",
+                    "bbox": [200, 150, 350, 224]
+                }
+            ]
+        },
+        {
+            "frame_no": 8,
+            "event": "A girl crouches near sand structures while another girl holds a blue bucket.",
+            "objects": [
+                {
+                    "object_id": "<ob1>",
+                    "label": "girl1",
+                    "bbox": [200, 0, 350, 224]
+                },
+                {
+                    "object_id": "<ob2>",
+                    "label": "girl2",
+                    "bbox": [0, 150, 150, 224]
+                },
+                {
+                    "object_id": "<ob3>",
+                    "label": "sand castle",
+                    "bbox": [200, 150, 350, 224]
+                }
+            ]
+        },
+        {
+            "frame_no": 9,
+            "event": "A girl crouches and shapes sand structures while another girl holds a blue bucket.",
+            "objects": [
+                {
+                    "object_id": "<ob1>",
+                    "label": "girl1",
+                    "bbox": [200, 0, 350, 224]
+                },
+                {
+                    "object_id": "<ob2>",
+                    "label": "girl2",
+                    "bbox": [0, 0, 150, 224]
+                },
+                {
+                    "object_id": "<ob3>",
+                    "label": "sand castle",
+                    "bbox": [200, 150, 350, 224]
+                }
+            ]
+        },
+        {
+            "frame_no": 10,
+            "event": "A girl stands holding a blue bucket, another girl crouches near sand structures.",
+            "objects": [
+                {
+                    "object_id": "<ob1>",
+                    "label": "girl1",
+                    "bbox": [100, 0, 350, 224]
+                },
+                {
+                    "object_id": "<ob2>",
+                    "label": "girl2",
+                    "bbox": [50, 0, 250, 224]
+                },
+                {
+                    "object_id": "<ob3>",
+                    "label": "sand castle",
+                    "bbox": [200, 150, 350, 224]
+                }
+            ]
+        },
+        {
+            "frame_no": 11,
+            "event": "A girl crouches near sand structures while another girl runs nearby.",
+            "objects": [
+                {
+                    "object_id": "<ob1>",
+                    "label": "girl1",
+                    "bbox": [200, 0, 350, 224]
+                },
+                {
+                    "object_id": "<ob2>",
+                    "label": "girl2",
+                    "bbox": [50, 0, 250, 224]
+                },
+                {
+                    "object_id": "<ob3>",
+                    "label": "sand castle",
+                    "bbox": [200, 150, 350, 224]
+                }
+            ]
+        },
+        {
+            "frame_no": 12,
+            "event": "A girl walks away from sand structures, leaving the purple bucket behind.",
+            "objects": [
+                {
+                    "object_id": "<ob1>",
+                    "label": "girl1",
+                    "bbox": [200, 0, 350, 224]
+                },
+                {
+                    "object_id": "<ob3>",
+                    "label": "sand castle",
+                    "bbox": [200, 150, 350, 224]
+                },
+                {
+                    "object_id": "<ob1>",
+                    "label": "girl1",
+                    "bbox": [200, 0, 350, 224]
+                },
+                {
+                    "object_id": "<ob1>",
+                    "label": "girl1",
+                    "bbox": [200, 0, 350, 224]
+                },
+                {
+                },
+                {
+                    "object_id": "<ob3>",
+                    "label": "sand castle",
+                    "bbox": [200, 150, 350, 224]
+                }
+            ]
+        }
+    ]
+}
