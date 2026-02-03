@@ -71,7 +71,8 @@ def main(args):
 
         clipped_mask = clip_mask_to_box(mask_np, obj["bbox"]) * 255
 
-        obj_id = obj.get("object_id", "unknown")
+        raw_id = obj.get("object_id", "unknown")
+        obj_id = raw_id.replace("<", "").replace(">", "")
         out_path = os.path.join(
             args.output_dir, f"mask_{obj_id}.png"
         )
