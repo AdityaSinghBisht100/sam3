@@ -8,17 +8,17 @@
                 {
                     "object_id": "<ob1>",
                     "label": "girl1",
-                    "bbox": [250, 0, 398, 224]
+                    "bbox": [250, 1, 398, 224]
                 },
                 {
                     "object_id": "<ob2>",
                     "label": "girl2",
-                    "bbox": [50, 170, 200, 224]
+                    "bbox": [3, 96, 153, 222]
                 },
                 {
                     "object_id": "<ob3>",
                     "label": "sand castle",
-                    "bbox": [100, 150, 350, 224]
+                    "bbox": [203, 114, 340, 202]
                 }
             ]
         },

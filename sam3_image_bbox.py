@@ -7,7 +7,30 @@ from PIL import Image
 from sam3.model_builder import build_sam3_image_model
 from sam3.model.sam3_image_processor import Sam3Processor
 
-
+def convert_to_yolo(box, img_width, img_height):
+    """
+    Converts [xmin, ymin, xmax, ymax] to [cx, cy, w, h] normalized.
+    """
+    xmin, ymin, xmax, ymax = box
+    
+    # Calculate absolute dimensions
+    dw = 1.0 / img_width
+    dh = 1.0 / img_height
+    
+    w_abs = xmax - xmin
+    h_abs = ymax - ymin
+    
+    # Calculate center
+    cx_abs = xmin + (w_abs / 2.0)
+    cy_abs = ymin + (h_abs / 2.0)
+    
+    # Normalize
+    cx = cx_abs * dw
+    cy = cy_abs * dh
+    w = w_abs * dw
+    h = h_abs * dh
+    
+    return [cx, cy, w, h]
 def xyxy_to_cxcywh_normalized(box, img_w, img_h):
     x1, y1, x2, y2 = box
     cx = (x1 + x2) / 2.0
