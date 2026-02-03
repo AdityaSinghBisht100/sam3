@@ -101,20 +101,43 @@ def main(args):
 
     masks = state["masks"]   
     os.makedirs(args.output_dir, exist_ok=True)
-    
+
+    # combined_mask = np.zeros((img_h, img_w), dtype=np.uint8)
+    # for obj, mask in zip(valid_objects, masks):
+    #     mask_np = mask.squeeze(0).cpu().numpy().astype(np.uint8)
+
+    #     clipped_mask = clip_mask_to_box(mask_np, obj["bbox"]) * 255
+    #     combined_mask |= clipped_mask
+    #     raw_id = obj.get("object_id", "unknown")
+    #     obj_id = raw_id.replace("<", "").replace(">", "")
+    #     out_path = os.path.join(
+    #         args.output_dir, f"mask_{obj_id}.png"
+    #     )
+
+    #     Image.fromarray(clipped_mask).save(out_path)
+    #     print(f"Saved mask for {obj_id}")
+
+    # combined_out = os.path.join(args.output_dir, "frame_mask.png")
+    # Image.fromarray(combined_mask * 255).save(combined_out)
+
+    # print(f"Combined frame mask saved at {combined_out}")
+
     combined_mask = np.zeros((img_h, img_w), dtype=np.uint8)
+
     for obj, mask in zip(valid_objects, masks):
         mask_np = mask.squeeze(0).cpu().numpy().astype(np.uint8)
 
-        clipped_mask = clip_mask_to_box(mask_np, obj["bbox"]) * 255
+        clipped_mask = clip_mask_to_box(mask_np, obj["bbox"])
+
         combined_mask |= clipped_mask
+
         raw_id = obj.get("object_id", "unknown")
         obj_id = raw_id.replace("<", "").replace(">", "")
         out_path = os.path.join(
             args.output_dir, f"mask_{obj_id}.png"
         )
 
-        Image.fromarray(clipped_mask).save(out_path)
+        Image.fromarray(clipped_mask * 255).save(out_path)
         print(f"Saved mask for {obj_id}")
 
     combined_out = os.path.join(args.output_dir, "frame_mask.png")
