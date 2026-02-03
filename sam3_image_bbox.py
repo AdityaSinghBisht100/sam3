@@ -9,23 +9,19 @@ from sam3.model.sam3_image_processor import Sam3Processor
 
 
 def xyxy_to_cxcywh_normalized(box, img_w, img_h):
-    """
-    Convert [x_min, y_min, x_max, y_max] (pixels)
-    to [cx, cy, w, h] normalized to [0,1] for SAM-3
-    """
-    x_min, y_min, x_max, y_max = box
+    x1, y1, x2, y2 = box
+    cx = (x1 + x2) / 2.0
+    cy = (y1 + y2) / 2.0
+    w = x2 - x1
+    h = y2 - y1
+    return [cx / img_w, cy / img_h, w / img_w, h / img_h]
 
-    cx = (x_min + x_max) / 2.0
-    cy = (y_min + y_max) / 2.0
-    w = x_max - x_min
-    h = y_max - y_min
 
-    return [
-        cx / img_w,
-        cy / img_h,
-        w / img_w,
-        h / img_h,
-    ]
+def clip_mask_to_box(mask, box):
+    x1, y1, x2, y2 = map(int, box)
+    clipped = np.zeros_like(mask)
+    clipped[y1:y2, x1:x2] = mask[y1:y2, x1:x2]
+    return clipped
 
 
 def main(args):
@@ -33,69 +29,66 @@ def main(args):
         data = json.load(f)
 
     frame0 = next(f for f in data["frames"] if f["frame_no"] == 0)
-    objects = frame0.get("objects", [])
+    objects = frame0["objects"]
 
     image = Image.open(args.image).convert("RGB")
     img_w, img_h = image.size
-    print(f"[INFO] Image size: {img_w} x {img_h}")
+    print(f"Image size: {img_w} x {img_h}")
 
     model = build_sam3_image_model()
     processor = Sam3Processor(model)
 
     state = processor.set_image(image)
-    valid_boxes = 0
+
+    valid_objects = []
 
     for obj in objects:
         if "bbox" not in obj or len(obj["bbox"]) != 4:
             continue
 
-        x_min, y_min, x_max, y_max = obj["bbox"]
-        if x_max <= x_min or y_max <= y_min:
+        box = obj["bbox"]
+        if box[2] <= box[0] or box[3] <= box[1]:
             continue
 
-        box_norm = xyxy_to_cxcywh_normalized(
-            obj["bbox"], img_w, img_h
-        )
+        box_norm = xyxy_to_cxcywh_normalized(box, img_w, img_h)
 
         state = processor.add_geometric_prompt(
             box=box_norm,
-            label=True,   
+            label=True,
             state=state,
         )
 
-        valid_boxes += 1
+        valid_objects.append(obj)
 
-    if valid_boxes == 0:
-        raise RuntimeError("No valid bounding boxes found")
+    if len(valid_objects) == 0:
+        raise RuntimeError("No valid objects found")
 
-    print(f"[INFO] Added {valid_boxes} box prompts")
-
-    masks = state["masks"]  
-    combined_mask = np.zeros((img_h, img_w), dtype=np.uint8)
-
-    for mask in masks:
-        mask_np = mask.squeeze(0).cpu().numpy().astype(np.uint8)
-        combined_mask |= mask_np
-
-    combined_mask *= 255
-
+    masks = state["masks"]   
     os.makedirs(args.output_dir, exist_ok=True)
-    out_path = os.path.join(args.output_dir, "frame_mask.png")
-    Image.fromarray(combined_mask).save(out_path)
 
-    print("Segmentation mask saved to:", out_path)
+    for obj, mask in zip(valid_objects, masks):
+        mask_np = mask.squeeze(0).cpu().numpy().astype(np.uint8)
+
+        clipped_mask = clip_mask_to_box(mask_np, obj["bbox"]) * 255
+
+        obj_id = obj.get("object_id", "unknown")
+        out_path = os.path.join(
+            args.output_dir, f"mask_{obj_id}.png"
+        )
+
+        Image.fromarray(clipped_mask).save(out_path)
+        print(f"Saved mask for {obj_id}")
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
-        description="SAM-3 image segmentation using bounding boxes "
+        description="SAM-3: segmentation mask for each object"
     )
-    parser.add_argument("--image", required=True, help="Frame image path")
-    parser.add_argument("--json", required=True, help="Annotation JSON path")
+    parser.add_argument("--image", required=True)
+    parser.add_argument("--json", required=True)
     parser.add_argument(
         "--output_dir",
         default="output_masks",
-        help="Directory to save combined mask",
     )
 
     args = parser.parse_args()
