@@ -74,9 +74,11 @@ def main(args):
     combined_mask = np.zeros((img_h, img_w), dtype=np.uint8)
 
     for mask in masks:
-        combined_mask |= mask.cpu().numpy().astype(np.uint8)
+        mask_np = mask.squeeze(0).cpu().numpy().astype(np.uint8)
+        combined_mask |= mask_np
 
     combined_mask *= 255
+
     os.makedirs(args.output_dir, exist_ok=True)
     out_path = os.path.join(args.output_dir, "frame_mask.png")
     Image.fromarray(combined_mask).save(out_path)
