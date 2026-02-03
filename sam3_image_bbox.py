@@ -101,7 +101,8 @@ def main(args):
 
     masks = state["masks"]   
     os.makedirs(args.output_dir, exist_ok=True)
-
+    
+    combined_mask = np.zeros((img_h, img_w), dtype=np.uint8)
     for obj, mask in zip(valid_objects, masks):
         mask_np = mask.squeeze(0).cpu().numpy().astype(np.uint8)
 
