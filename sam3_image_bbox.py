@@ -31,7 +31,9 @@ def convert_to_yolo(box, img_width, img_height):
     h = h_abs * dh
     
     return [cx, cy, w, h]
-def xyxy_to_cxcywh_normalized(box, img_w, img_h):
+
+
+def cordinate_normalization(box, img_w, img_h):
     x1, y1, x2, y2 = box
     cx = (x1 + x2) / 2.0
     cy = (y1 + y2) / 2.0
@@ -77,9 +79,9 @@ def main(args):
         obj_id = raw_id.replace("<", "").replace(">", "")
         label = obj.get("label", "N/A")
 
-        box_norm = xyxy_to_cxcywh_normalized(box, img_w, img_h)
+        box_norm = cordinate_normalization(box, img_w, img_h)
 
-        print(f"[INFO] Object {obj_id} | label={label}")
+        print(f"Object {obj_id} | label={label}")
         print(f"original bbox (xyxy, px): {box}")
         print( "normalized bbox (cxcywh): "
             f"[{box_norm[0]:.4f}, {box_norm[1]:.4f}, "
@@ -104,7 +106,7 @@ def main(args):
         mask_np = mask.squeeze(0).cpu().numpy().astype(np.uint8)
 
         clipped_mask = clip_mask_to_box(mask_np, obj["bbox"]) * 255
-
+        combined_mask |= clipped_mask
         raw_id = obj.get("object_id", "unknown")
         obj_id = raw_id.replace("<", "").replace(">", "")
         out_path = os.path.join(
@@ -114,10 +116,14 @@ def main(args):
         Image.fromarray(clipped_mask).save(out_path)
         print(f"Saved mask for {obj_id}")
 
+    combined_out = os.path.join(args.output_dir, "frame_mask.png")
+    Image.fromarray(combined_mask * 255).save(combined_out)
+
+    print(f"Combined frame mask saved at {combined_out}")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
-        description="SAM-3: segmentation mask for each object"
+        description="SAM-3: segmentation mask for each object/ combined mask"
     )
     parser.add_argument("--image", required=True)
     parser.add_argument("--json", required=True)
