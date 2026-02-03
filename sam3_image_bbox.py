@@ -50,13 +50,24 @@ def main(args):
         if box[2] <= box[0] or box[3] <= box[1]:
             continue
 
+        raw_id = obj.get("object_id", "unknown")
+        obj_id = raw_id.replace("<", "").replace(">", "")
+        label = obj.get("label", "N/A")
+
         box_norm = xyxy_to_cxcywh_normalized(box, img_w, img_h)
+
+        print(f"[INFO] Object {obj_id} | label={label}")
+        print(f"original bbox (xyxy, px): {box}")
+        print( "normalized bbox (cxcywh): "
+            f"[{box_norm[0]:.4f}, {box_norm[1]:.4f}, "
+            f"{box_norm[2]:.4f}, {box_norm[3]:.4f}]")
 
         state = processor.add_geometric_prompt(
             box=box_norm,
             label=True,
             state=state,
         )
+
 
         valid_objects.append(obj)
 
